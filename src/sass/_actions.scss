@@ -1,0 +1,124 @@
+.actions {
+    height: 600px;
+    width: 360px;
+    // background-color: lightcoral;
+    &__createTicket {
+        cursor: pointer;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        width: 220px;
+        height: 80px;
+        padding: 5px;
+        background-color: $color1;
+        border: none;
+        border-radius: 20px;
+        color: white;
+        text-shadow: 0px 2px 4px rgb(50, 50, 50);
+        font-family: 'Satoshi';
+        font-size: 1.5rem;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        transition: 300ms ease-in-out;
+        &:hover {
+            transform: translateY(3px);
+        }
+    }
+    &__header1, &__header2 {
+        margin-top: 25px;
+        margin-bottom: 5px;
+        font-size: 1.6rem;
+        color: $color1;
+        text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
+    }
+    &__helper {
+        margin-bottom: 25px;
+        font-size: 1rem;
+        font-style: italic;
+        font-weight: 200;
+    }
+    &__freeParkingSpace {
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        button {
+            cursor: pointer;
+            height: 40px;
+            width: 60px;
+            border: 1px solid black;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            background: transparent;
+            &:hover {
+                background-color: $color1;
+                color: white;
+                border: none;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            }
+        }
+        &__confirmation {
+            padding: 10px;
+            border-radius: 4px;
+            width: 90%;
+            div {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                button {
+                    cursor: pointer;
+                    width: 60px;
+                    height: 30px;
+                    background-color: $color1;
+                    border: none;
+                    border-radius: 4px;
+                    color: white;
+                    font-family: 'Satoshi';
+                }
+            }
+        }
+    }
+}
+.ticket {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 370px;
+    background-color: rgb(226, 189, 189);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    p {
+        width: 100%;
+        font-size: 1.6rem;
+    }
+    p:nth-child(1) {
+        font-weight: 800;
+        font-style: italic;
+    }
+    button {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        height: 40px;
+        width: 40px;
+        font-size: 1.5rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+    }
+}

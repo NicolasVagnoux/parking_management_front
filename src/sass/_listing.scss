@@ -1,0 +1,30 @@
+.listing {
+    height: 600px;
+    width: 360px;
+    &__header1, &__header2 {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        font-size: 1.6rem;
+        color: $color1;
+        text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
+    }
+    &__available, &__occupied {
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        p {
+            height: 40px;
+            width: 60px;
+            border: 1px solid black;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+    }
+}

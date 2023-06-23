@@ -1,0 +1,37 @@
+.map {
+    &__header {
+        margin-bottom: 5px;
+        font-size: 1.6rem;
+        color: $color1;
+        text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
+    }
+    &__helper {
+        margin-bottom: 25px;
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: 200;
+        span:nth-child(1) {
+            color: green;
+        }
+        span:nth-child(2) {
+            color: red;
+        }
+    }
+    &__rows {
+        box-sizing: border-box;
+        height: 500px;
+        width: 360px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        &__firstRow, &__secondRow {
+            box-sizing: border-box;
+            height: 100%;
+            width: 120px;
+            border-top: 2px solid black;
+        }
+    }
+}
