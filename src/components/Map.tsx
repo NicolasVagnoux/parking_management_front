@@ -1,42 +1,31 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { IParkingSpace } from '../interfaces/IParkingSpace';
 import ParkingSpace from './ParkingSpace';
+// Redux
+import { useSelector } from 'react-redux';
+import { selectParkingList } from '../redux/parkingSlice';
 
-interface Props {
-    flag: boolean;
-}
+const Map = () => {
 
-const Map = ({flag}: Props) => {
-
-    const [parkingSpaces, setParkingSpaces] = useState<IParkingSpace[]>([]);
-
-    useEffect(() => {
-        const getParkingList = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}`);
-            setParkingSpaces(data);
-        };
-        getParkingList();
-        console.log(parkingSpaces);
-    }, [flag]);
+    // Getting list with Redux
+    const parkingList: IParkingSpace[] = useSelector(selectParkingList);
 
     return (
         <div className="map">
             <h2 className='map__header'>Carte du parking :</h2>
             <h3 className='map__helper'>
-                <span>{parkingSpaces.filter(x => x.isOccupied == 0).length} Places libres </span>
+                <span>{parkingList.filter(x => x.isOccupied == 0).length} Places libres </span>
                  / 
-                <span> {parkingSpaces.filter(x => x.isOccupied == 1).length} Places occupées</span>
+                <span> {parkingList.filter(x => x.isOccupied == 1).length} Places occupées</span>
             </h3>
             <div className='map__rows'>
                 <div className="map__rows__firstRow">
-                    {parkingSpaces && parkingSpaces
+                    {parkingList && parkingList
                         .filter(space => space.id <= 8)
                         .map(space => <ParkingSpace {...space} row={1} key={space.id} />)
                     }
                 </div>
                 <div className="map__rows__secondRow">
-                    {parkingSpaces && parkingSpaces
+                    {parkingList && parkingList
                         .filter(space => space.id > 8)
                         .map(space => <ParkingSpace {...space} row={2} key={space.id} />)
                     }

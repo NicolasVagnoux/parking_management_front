@@ -1,18 +1,26 @@
-// import React from 'react';
-import { useState } from "react";
 import Actions from "./Actions";
 import Listing from "./Listing";
 import Map from "./Map";
+import { IParkingSpace } from "../interfaces/IParkingSpace";
+// Redux
+import { useSelector } from 'react-redux';
+import { selectParkingList } from '../redux/parkingSlice';
 
 const ParkingManagement = () => {
 
-    const [flag, setFlag] = useState<boolean>(false);
+    // Getting list with Redux
+    const parkingList: IParkingSpace[] = useSelector(selectParkingList);
 
     return (
         <div className="parkingManagement">
-            <Map flag={flag} />
-            <Listing flag={flag} />
-            <Actions flag={flag} setFlag={setFlag} />
+            {!parkingList && <p className="loading">Chargement en cours</p>}
+            {parkingList &&
+            <>
+                <Map />
+                <Listing />
+                <Actions />
+            </>
+            }
         </div>
     );
 };

@@ -1,46 +1,36 @@
 // import React from 'react';
 import axios from 'axios';
-import { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import { useState } from 'react';
 import { IParkingSpace } from '../interfaces/IParkingSpace';
+// Redux
+import { useSelector } from 'react-redux';
+import { selectParkingList } from '../redux/parkingSlice';
 
-interface Props {
-    flag: boolean;
-    setFlag: Dispatch<SetStateAction<boolean>>;
-}
+const Actions = () => {
 
-const Actions = ({ flag, setFlag }: Props) => {
+    // Getting list with Redux
+    const parkingList: IParkingSpace[] = useSelector(selectParkingList);
 
-    // Liste
-    const [parkingSpaces, setParkingSpaces] = useState<IParkingSpace[]>([]);
-
-    // Free parking spaces
+    // Free parking spaces functionnality
     const [idToFree, setIdToFree] = useState<string>('');
     const [isConfirmationOpened, setIsConfirmationOpened] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
 
-    // Create ticket
+    // Create ticket functionnality
     const [isTicketOpened, setIsTicketOpened] = useState<boolean>(false);
     const [idTicket, setIdTicket] = useState<string>('');
-
-    useEffect(() => {
-        const getParkingList = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}`);
-            setParkingSpaces(data);
-        };
-        getParkingList();
-    }, [flag]);
 
     const freeParkingSpace = async (e: React.FormEvent<HTMLButtonElement>, id: string): Promise<void> => {
         try {
             e.preventDefault();
             await axios.put(`${import.meta.env.VITE_API_URL}/${id}`);
             setIsConfirmationOpened(false);
-            setFlag(!flag);
             setSuccess(true);
             setTimeout(() => {
                 setSuccess(false);
                 setIdToFree('');
-            }, 3000);
+                location.reload();
+            }, 1500);
           } catch (err) {
             console.error(err);
           }
@@ -64,12 +54,11 @@ const Actions = ({ flag, setFlag }: Props) => {
         try {
             e.preventDefault();
             const availableIds: Array<number> = [];
-            parkingSpaces.filter(x => x.isOccupied == 0).map(x => availableIds.push(x.id));
+            parkingList.filter(x => x.isOccupied == 0).map(x => availableIds.push(x.id));
             const randomId: number = shuffle(availableIds)[0];
             await axios.put(`${import.meta.env.VITE_API_URL}/${randomId}`);
             setIdTicket(randomId.toLocaleString());
             setIsTicketOpened(true);
-            setFlag(!flag);
         } catch(err) {
             console.error(err);
         }
@@ -85,7 +74,7 @@ const Actions = ({ flag, setFlag }: Props) => {
             <h2 className='actions__header2'>Libérer une place :</h2>
             <h3 className='actions__helper'>Sélectionnez une place parmi les places actuellement occupées :</h3>
             <div className="actions__freeParkingSpace">
-                {parkingSpaces && parkingSpaces
+                {parkingList && parkingList
                     .filter(space => space.isOccupied == 1)
                     .map(space => <button key={space.id} type='button' onClick={() => {setIsConfirmationOpened(true); setIdToFree(space.id.toLocaleString())}}>n° {space.id}</button>)
                 }
@@ -97,14 +86,16 @@ const Actions = ({ flag, setFlag }: Props) => {
                     <button type='button' onClick={() => setIsConfirmationOpened(false)}>Non</button>
                 </div>
             </div>}
-            {success && <p>La place n°{idToFree} a bien été libérée !</p>}
+            {success && <p style={{fontSize: '1.5rem'}}>La place n°{idToFree} a bien été libérée !</p>}
         </div>
         {isTicketOpened && 
         <div className='ticket'>
-            <p>Ticket de stationnement</p>
-            <p>Place n°{idTicket}</p>
-            <p>Merci ! 🚘</p>
-            <button type='button' onClick={() => {setIsTicketOpened(false); setIdTicket('')}}>X</button>
+            <div>
+                <p>Ticket de stationnement</p>
+                <p>Place n°{idTicket}</p>
+                <p>Merci ! 🚘</p>
+                <button type='button' onClick={() => {setIsTicketOpened(false); setIdTicket(''); setTimeout(() => {location.reload()}, 50)}}>X</button>
+            </div>
         </div>}
         </>
     );
