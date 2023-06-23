@@ -1,7 +1,9 @@
 .actions {
     height: 600px;
     width: 360px;
-    // background-color: lightcoral;
+    @media (max-width: 710px) {
+        height: auto;
+    }
     &__createTicket {
         cursor: pointer;
         margin-top: 25px;
@@ -48,6 +50,7 @@
             height: 40px;
             width: 60px;
             border: 1px solid black;
+            font-family: 'Satoshi';
             border-radius: 4px;
             display: flex;
             justify-content: center;

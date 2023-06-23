@@ -1,6 +1,11 @@
 .listing {
     height: 600px;
     width: 360px;
+    @media (max-width: 710px) {
+        height: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
     &__header1, &__header2 {
         margin-top: 25px;
         margin-bottom: 25px;
